@@ -5,7 +5,7 @@
             <div class="text-center !lg:text-left text-xs sm:text-sm md:text-base">
                 <h3 class="text-4xl lg:text-5xl mb-6 font-['Kelly_Slab']">{{
                     visible
-                }}<span
+                    }}<span
                         class="blink underline decoration-slate-700 decoration-3 lg:decoration-4 text-transparent">{{
                             typewriter[length]
                         }}</span><span class="invisible">{{ invisible }}</span>
@@ -23,7 +23,7 @@
                 </span>
             </a>
         </div>
-        <div class="justify-center flex flex-wrap gap-2 my-24">
+        <div class="justify-center flex flex-wrap gap-2 mt-24">
             <span v-if="title">
                 <el-button size="large" type="primary" round :to="to" tag="router-link" class="w-48">
                     <icon :icon="startIcon" class="size-6 mr-1"></icon>
@@ -43,7 +43,9 @@
                 </el-button>
             </span>
         </div>
-        <div class="flex justify-center text-center my-6 px-6"><el-text type="info">👍 Support the project by starring it on GitHub, subscribing, liking, and commenting! Your support is crucial for the project's continued growth and development!</el-text></div>
+        <div class="flex justify-center text-center my-6 px-6"><el-text type="info">👍 Support the project by starring
+                it on GitHub, subscribing, liking, and commenting! Your support is crucial for the project's continued
+                growth and development!</el-text></div>
     </div>
     <div class="absolute -z-10 inset-0 m-auto max-w-xs h-[357px] blur-[118px] sm:max-w-md md:max-w-lg bg-gradient"
         un-cloak>
