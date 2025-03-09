@@ -18,7 +18,7 @@
             <div>
                 <Icon :icon="icon" class="size-12 animate__animated"
                     v-intersection-observer="([{ isIntersecting }]) => { iconAnima[index] = isIntersecting }"
-                    :class="{ animate__rubberBand: iconAnima[index] }">
+                    :class="{ animate__jackInTheBox: iconAnima[index] }">
                 </Icon>
             </div>
             <el-text size="large" v-html="text"></el-text>
