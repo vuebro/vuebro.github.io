@@ -5,7 +5,7 @@
             <h2 class="text-4xl my-5 font-['Caveat']">{{ the.title }}</h2>
             <el-text size="large">{{ the.description }}</el-text>
         </div>
-        <el-text>The project website: <a href="https://element-plus.org" target="_blank">https://element-plus.org</a></el-text>
+        <el-text>{{ t("site") }}: <a href="https://element-plus.org" target="_blank">https://element-plus.org</a></el-text>
         <h3 class="mt-8 mb-3 !font-semibold !text-2xl">Importmap</h3>
         <dl class="grid grid-cols-[repeat(2,auto)] gap-x-4">
             <template v-for="{ key, value } in params">
@@ -13,11 +13,11 @@
                 <dd class="text-slate-500 overflow-hidden text-ellipsis">{{ value }}</dd>
             </template>
         </dl>
-        <h3 class="mt-8 mb-3 !font-semibold !text-2xl">The code for connecting a library</h3>
+        <h3 class="mt-8 mb-3 !font-semibold !text-2xl">{{ t("code") }}</h3>
         <highlightjs language="js" :code="js" class="not-prose"></highlightjs>
-        <h3 class="mt-8 mb-3 !font-semibold !text-2xl">An example of usage</h3>
+        <h3 class="mt-8 mb-3 !font-semibold !text-2xl">{{ t("example") }}</h3>
         <el-tabs class="not-prose 2xl:row-start-auto">
-            <el-tab-pane label="Result">
+            <el-tab-pane :label="t('result')">
                 <el-card class="ma-4 max-w-96">
                     <template #header>Yummy hamburger</template>
                     <el-image
@@ -35,18 +35,35 @@
 <script setup>
 import { ElImage } from "element-plus";
 import { inject } from "vue";
-const { id } = defineProps(["id"]);
-const the = inject("pages")[id];
+import { useI18n } from "vue-i18n";
 
-const params = [{
-    key: "element-plus",
-    value: "https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.mjs"
-}];
-const js = `import "https://cdn.jsdelivr.net/npm/element-plus/dist/index.css";
+const { t } = useI18n({
+    messages: {
+        en: {
+            site: "The project website",
+            example: "An example of usage",
+            result: "Result",
+            code: "The code for connecting a library"
+        },
+        ru: {
+            site: "Сайт проекта",
+            example: "Пример использования",
+            result: "Результат",
+            code: "Код для подключения библиотеки"
+        }
+    }
+}),
+    { id } = defineProps(["id"]),
+    the = inject("pages")[id],
+    params = [{
+        key: "element-plus",
+        value: "https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.mjs"
+    }],
+    js = `import "https://cdn.jsdelivr.net/npm/element-plus/dist/index.css";
 import ElementPlus from "element-plus";
 
-window.app.use(ElementPlus.default);`;
-const html = `<el-card class="ma-4 max-w-96">
+window.app.use(ElementPlus.default);`,
+    html = `<el-card class="ma-4 max-w-96">
     <template #header>Yummy hamburger</template>
     <el-image
         src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
