@@ -7,7 +7,7 @@
         </div>
         <el-text>{{ t("site") }}: <a href="https://quasar.dev" target="_blank">https://quasar.dev</a></el-text>
         <h3 class="mt-8 mb-3 !font-semibold !text-2xl">Importmap</h3>
-        <dl class="grid grid-cols-[repeat(2,auto)] gap-x-4">
+        <dl class="grid grid-cols-[repeat(2,auto)] gap-x-4 w-fit">
             <template v-for="{ key, value } in params">
                 <dt class="font-bold text-slate-700">{{ key }}</dt>
                 <dd class="text-slate-500 overflow-hidden text-ellipsis">{{ value }}</dd>
