@@ -14,11 +14,9 @@
         </div>
     </div>
     <ul class="divide-y-2 divide-dashed divide-slate-800" un-cloak>
-        <li class="flex items-center gap-4 px-4 py-6 flex-nowrap" v-for="({ text, icon }, index) in features">
+        <li class="flex items-center gap-4 px-4 py-6 flex-nowrap" v-for="{ text, icon } in features">
             <div>
-                <Icon :icon="icon" class="size-12 animate__animated"
-                    v-intersection-observer="([{ isIntersecting }]) => { iconAnima[index] = isIntersecting }"
-                    :class="{ animate__jackInTheBox: iconAnima[index] }">
+                <Icon :icon="icon" class="size-12"
                 </Icon>
             </div>
             <el-text size="large" v-html="text"></el-text>
@@ -27,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref } from "vue";
 import { vIntersectionObserver } from "@vueuse/components";
 import { useI18n } from "vue-i18n";
 
@@ -85,6 +83,5 @@ const { t } = useI18n({
     "magnifying-glass-tilted-right",
     "smiling-face-with-open-hands"
 ].map((value) => ({ icon: `openmoji:${value}`, text: t(value) })),
-    anima = ref(false),
-    iconAnima = reactive([]);
+    anima = ref(false);
 </script>
