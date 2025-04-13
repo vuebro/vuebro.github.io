@@ -1,18 +1,23 @@
 <template>
-    <el-carousel type="card" :height="height" indicator-position="outside" un-cloak>
-        <el-carousel-item v-for="i in 6" class="!h-fit" v-element-size="({ height }) => { heights[i - 1] = height }"><img
+    <el-carousel type="card" :height="Height" indicator-position="outside" un-cloak>
+        <el-carousel-item v-for="i in 6" class="!h-auto" v-element-size="elementSise"><img
                 :src="`images/screenshots/${i}.png`" decoding="async"></el-carousel-item>
     </el-carousel>
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
+import { useRoute } from "vue-router";
 import { vElementSize } from "@vueuse/components";
-import { set } from "@vueuse/core";
 
-const heights = ref([]),
-    height = ref(""),
-    deep = true;
+const route = useRoute(),
+    Height = ref(""),
+    elementSise = async ({ height }) => {
+        if (height) requestAnimationFrame(() => { Height.value = `${height}px`; });
+    };
 
-watch(heights, (value) => { requestAnimationFrame(() => { set(height, `${Math.max(...value)}px`) }) }, { deep });
+onMounted(() => {
+    const element = document.getElementById(String(route.name));
+    watch(Height, () => { element.scrollIntoView({ behavior: "smooth" }) }, { once: true, flush: "post" });
+});
 </script>
