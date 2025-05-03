@@ -86,9 +86,6 @@
     <el-backtop></el-backtop>
 </template>
 <script setup>
-import "./node_modules/@highlightjs/cdn-assets/styles/stackoverflow-light.min.css";
-import "./node_modules/element-plus/dist/index.css";
-import "./node_modules/animate.css/animate.min.css";
 import { createVuetify, components, directives } from "vuetify";
 import { useRoute } from "vue-router";
 import { Quasar } from "quasar";
@@ -102,15 +99,15 @@ import javascript from "highlight.js/lib/languages/javascript";
 import css from "highlight.js/lib/languages/css";
 import xml from "highlight.js/lib/languages/xml";
 import hljsVuePlugin from "@highlightjs/vue-plugin";
-hljs.default.registerLanguage("javascript", javascript.default);
-hljs.default.registerLanguage("css", css.default);
-hljs.default.registerLanguage("xml", xml.default);
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("css", css);
+hljs.registerLanguage("xml", xml);
 window.app.use(createVuetify({ components, directives }));
 window.app.component("Icon", Icon);
 window.app.use(createI18n({ legacy: false, locale: "en" }))
 window.app.use(ElementPlus);
 window.app.use(Quasar);
-window.app.use(hljsVuePlugin.default);
+window.app.use(hljsVuePlugin);
 const { t } = useI18n({
     messages: {
         en: {
@@ -155,6 +152,10 @@ onMounted(() => {
 watch(() => route.name, () => { drawer.value = false });
 </script>
 <style scoped>
+@import "./node_modules/@highlightjs/cdn-assets/styles/stackoverflow-light.min.css";
+@import "./node_modules/element-plus/dist/index.css";
+@import "./node_modules/animate.css/animate.min.css";
+
 .el-drawer .el-menu {
     border-right: none;
 }
