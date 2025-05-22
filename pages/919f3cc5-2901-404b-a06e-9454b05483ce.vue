@@ -108,7 +108,7 @@ hljs.registerLanguage("xml", xml);
 const { appContext: { app } } = getCurrentInstance();
 app.use(createVuetify());
 app.component("Icon", Icon);
-app.use(createI18n({ legacy: false, locale: "ru", fallbackLocale: "en" }))
+app.use(createI18n({ legacy: false, locale: "en", fallbackLocale: "en" }))
 app.use(ElementPlus);
 app.use(Quasar);
 app.use(hljsVuePlugin);
