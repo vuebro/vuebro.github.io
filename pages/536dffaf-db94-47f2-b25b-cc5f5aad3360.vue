@@ -5,7 +5,7 @@
             <h2 class="text-4xl my-5 font-['Caveat']">{{ the.title }}</h2>
             <el-text size="large">{{ the.description }}</el-text>
         </div>
-        <el-text>{{ t("site") }}: <a href="https://vueuse.org" target="_blank">https://vueuse.org</a></el-text>
+        <el-text>{{ t("site") }}: <a href="https://tresjs.org" target="_blank">https://tresjs.org</a></el-text>
         <h3 class="mt-8 mb-3 !font-semibold !text-2xl">Importmap</h3>
         <dl class="grid grid-cols-[repeat(2,auto)] gap-x-4 w-fit not-prose">
             <template v-for="{ key, value } in params">
@@ -16,50 +16,75 @@
         <h3 class="mt-8 mb-3 !font-semibold !text-2xl">{{ t("example") }}</h3>
         <el-tabs class="not-prose 2xl:row-start-auto">
             <el-tab-pane :label="t('result')">
-                <div>Now: {{ now }}</div>
+                <div class="size-96">
+                    <TresCanvas clear-color="white">
+                        <Levioso :speed="2" :range="[0, 0.7]" :rotation-factor="9">
+                            <TorusKnot :scale="0.45">
+                                <TresMeshNormalMaterial />
+                            </TorusKnot>
+                        </Levioso>
+                        <ContactShadows :position-y="-1" color="#335" :scale="20" />
+                    </TresCanvas>
+                </div>
             </el-tab-pane>
             <el-tab-pane label="Template">
                 <highlightjs language="html" :code="html"></highlightjs>
             </el-tab-pane>
             <el-tab-pane label="Script">
-                <highlightjs language="js" :code="js"></highlightjs>
+                <highlightjs language="js" :code="script"></highlightjs>
             </el-tab-pane>
         </el-tabs>
     </div>
 </template>
 
 <script setup vapor>
-import { useNow } from "@vueuse/core";
 import { inject } from "vue";
 import { useI18n } from "vue-i18n";
-
-const now = useNow();
+import { ContactShadows, Levioso, TorusKnot } from "https://cdn.jsdelivr.net/npm/@tresjs/cientos@5.1.0/dist/trescientos.js";
+import { TresCanvas } from "@tresjs/core";
 
 const { t } = useI18n({
-    messages: {
-        en: {
-            site: "The project website",
-            example: "An example of usage",
-            result: "Result"
-        },
-        ru: {
-            site: "Сайт проекта",
-            example: "Пример использования",
-            result: "Результат"
+        messages: {
+            en: {
+                site: "The project website",
+                example: "An example of usage",
+                result: "Result",
+                code: "The code for connecting a library"
+            },
+            ru: {
+                site: "Сайт проекта",
+                example: "Пример использования",
+                result: "Результат",
+                code: "Код для подключения библиотеки"
+            }
         }
-    }
-}),
+    }),
     { pid } = defineProps(["pid"]),
     the = inject("pages")[pid],
     params = [{
+        key: "@tresjs/core",
+        value: "https://cdn.jsdelivr.net/npm/@tresjs/core@5/dist/tres.js"
+    }, {
+        key: "@tresjs/cientos",
+        value: "https://cdn.jsdelivr.net/npm/@tresjs/cientos@5/dist/trescientos.js"
+    }, {
+        key: "three",
+        value: "https://cdn.jsdelivr.net/npm/three@0.180/build/three.module.min.js"
+    }, {
         key: "@vueuse/core",
-        value: "https://cdn.jsdelivr.net/npm/@vueuse/core@13/index.mjs"
+        value: "https://cdn.jsdelivr.net/npm/@vueuse/core@14/dist/index.js"
     }, {
         key: "@vueuse/shared",
-        value: "https://cdn.jsdelivr.net/npm/@vueuse/shared@13/index.mjs"
+        value: "https://cdn.jsdelivr.net/npm/@vueuse/shared@14/dist/index.js"
     }],
-    js = `import { useNow } from '@vueuse/core';
-
-const now = useNow();`;
-const html = "<div>Now: {{ now }}</div>";
+    html = `<TresCanvas clear-color="white">
+    <Levioso :speed="2" :range="[0, 0.7]" :rotation-factor="9">
+      <TorusKnot :scale="0.45">
+        <TresMeshNormalMaterial />
+      </TorusKnot>
+    </Levioso>
+    <ContactShadows :position-y="-1" color="#335" :scale="20" />
+  </TresCanvas>`,
+    script = `import { ContactShadows, Levioso, TorusKnot } from '@tresjs/cientos'
+import { TresCanvas } from '@tresjs/core'`;
 </script>
