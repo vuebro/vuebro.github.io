@@ -81,7 +81,7 @@ import { useI18n } from "vue-i18n";
 import { ref, computed, inject, reactive } from "vue";
 import { ArrowLeft, ArrowRight } from "@element-plus/icons-vue";
 
-const { pid } = defineProps(["pid"]);
+const { id: pid } = defineProps(["id"]);
 const pages = inject("pages");
 const the = pages[pid];
 const { t } = useI18n({
